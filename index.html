@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Jagdamba Dhaba & Restaurant</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<style>
+  :root { --gold: #FFD700; --red: #ff4757; --green: #2ecc71; --dark: #0a0a0a; }
+  body { margin:0; font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color:#333; padding-bottom:180px; }
+  
+  .header {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80');
+    background-size: cover; padding: 35px 15px; text-align: center; border-bottom: 3px solid var(--gold);
+    border-radius: 0 0 40px 40px; color: white;
+  }
+
+  /* Logo Fix: GitHub hosted reliable link */
+  .logo-img {
+    width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--gold);
+    margin-bottom: 12px; background: #000; object-fit: contain;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .header h1 { 
+    margin: 0; font-size: 20px; background: linear-gradient(to right, #fff, var(--gold), #fff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
+    letter-spacing: 1px; font-weight: 800;
+  }
+  .header p { color: var(--gold); font-size: 13px; margin-top: 5px; font-weight: bold; }
+  
+  .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; position: sticky; top: 0; z-index: 100; background: #f8f9fa; border-bottom: 1px solid #eee; }
+  .cat-scroll::-webkit-scrollbar { display: none; }
+  .chip { background: white; padding: 10px 22px; border-radius: 25px; white-space: nowrap; font-size: 13px; border: 1px solid #eee; cursor: pointer; color: #666; font-weight: 600; }
+  .chip.active { background: #333; color: white; border-color: #333; }
+  
+  .container { padding: 10px; }
+  .item-card { display: flex; background: white; margin-bottom: 12px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); align-items: center; padding: 12px; }
+  .item-img { width: 85px; height: 85px; border-radius: 15px; object-fit: cover; margin-right: 12px; }
+  .item-details { flex: 1; }
+  
+  .veg-icon, .nonveg-icon { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
+  .veg-icon { border: 1px solid var(--green); }
+  .veg-icon span { width: 7px; height: 7px; background: var(--green); border-radius: 50%; }
+  .nonveg-icon { border: 1px solid var(--red); }
+  .nonveg-icon span { width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
+  
+  .item-name { font-weight: bold; font-size: 15px; color: #1a1a1a; }
+  .item-desc { font-size: 11px; color: #777; margin: 2px 0; line-height: 1.2; }
+  .item-price { font-weight: 800; color: #000; font-size: 15px; margin-top: 4px; }
+  .btn-qty { background: white; color: var(--red); border: 1px solid #eee; padding: 8px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+  
+  .premium-connect { background: #fff; border: 1px solid #eee; border-radius: 25px; padding: 25px 15px; margin: 20px 10px 100px 10px; text-align: center; }
+  .connect-btn { display: inline-block; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 14px; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
+
+  .footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-radius: 25px 25px 0 0; z-index: 1000; }
+  .whatsapp-btn { background: var(--green); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: 800; cursor: pointer; }
+  
+  .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+  .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 30px; width: 85%; max-width: 400px; text-align: center; }
+  .modal-input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; }
+  .confirm-btn { background: var(--green); width: 100%; padding: 18px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://raw.githubusercontent.com/Shaktinathjha/hotel/main/1000172945.png" class="logo-img" alt="HJ Logo" onerror="this.src='https://via.placeholder.com/100/000000/FFD700?text=HJ'">
+  <h1>HOTEL JAGDAMBA DHABA & RESTAURANT</h1>
+  <p>स्वाद जो दिल जीत ले ❤️</p>
+</div>
+
+<div class="cat-scroll">
+  <div class="chip active" onclick="filterMenu('All', this)">All Menu</div>
+  <div class="chip" onclick="filterMenu('SPECIAL OFFERS', this)">Offers</div>
+  <div class="chip" onclick="filterMenu('CHAI & SNACKS', this)">Snacks</div>
+  <div class="chip" onclick="filterMenu('FAST FOOD', this)">Fast Food</div>
+  <div class="chip" onclick="filterMenu('THALIS', this)">Thalis</div>
+  <div class="chip" onclick="filterMenu('MAIN COURSE', this)">Main Course</div>
+  <div class="chip" onclick="filterMenu('BEVERAGES', this)">Beverages</div>
+</div>
+
+<div class="container" id="menuDisplay"></div>
+
+<div class="premium-connect">
+  <h3 style="margin-bottom: 12px; font-size: 16px;">Koi help chahiye?</h3>
+  <a href="tel:8377996928" class="connect-btn">Call Hotel Jagdamba</a>
+</div>
+
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <h2 style="margin-top:0;">ऑर्डर की जानकारी</h2>
+    <input type="text" id="custName" class="modal-input" placeholder="आपका नाम">
+    <select id="orderMode" class="modal-input" onchange="updatePlaceholder()">
+      <option value="Dining">Dining (होटल में खाना)</option>
+      <option value="Delivery">Delivery (घर पर मंगवाना)</option>
+    </select>
+    <input type="text" id="custInfo" class="modal-input" placeholder="टेबल नंबर">
+    <button class="confirm-btn" onclick="sendToWhatsApp()">WhatsApp पर भेजें</button>
+    <p onclick="closeModal()" style="color:#888; margin-top:15px; cursor:pointer; font-size: 14px;">वापस जाएँ</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div style="font-size:11px; color:#666; font-weight: bold;">TOTAL BILL</div>
+    <div id="totalBill" style="font-size:22px; font-weight:900;">₹0</div>
+  </div>
+  <button class="whatsapp-btn" onclick="openOrderPopup()">Confirm Order</button>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+
+  const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
+  let menuItems = [];
+  let cart = {};
+  let currentFilter = "All";
+
+  async function fetchMenu() {
+    try {
+      const response = await fetch(sheetURL);
+      const data = await response.text();
+      const rows = data.split("\n").slice(1);
+      menuItems = rows.filter(r => r.trim() !== "").map((r, i) => {
+        const c = r.split(",");
+        return { id: i, name: c[0], price: parseInt(c[1]), cat: c[2], type: c[3], desc: c[4], img: c[5] };
+      });
+      render();
+    } catch (e) { document.getElementById("menuDisplay").innerHTML = "Menu loading..."; }
+  }
+
+  function render() {
+    let html = "";
+    let list = currentFilter === "All" ? menuItems : menuItems.filter(i => i.cat.trim().toUpperCase() === currentFilter.toUpperCase());
+    list.forEach(item => {
+      let q = cart[item.id] || 0;
+      let icon = item.type.toLowerCase().includes("non") ? "nonveg-icon" : "veg-icon";
+      html += `<div class="item-card">
+        <img src="${item.img || 'https://via.placeholder.com/90'}" class="item-img" onerror="this.src='https://via.placeholder.com/90'">
+        <div class="item-details">
+          <div class="${icon}"><span></span></div>
+          <div class="item-name">${item.name}</div>
+          <div class="item-desc">${item.desc}</div>
+          <div class="item-price">₹${item.price}</div>
+        </div>
+        <div>
+          ${q > 0 ? `<div style="display:flex; gap:10px; background:var(--red); color:white; padding:7px 12px; border-radius:12px; font-weight:bold;">
+            <span onclick="updateQty(${item.id},-1)">−</span> <span>${q}</span> <span onclick="updateQty(${item.id},1)">+</span>
+          </div>` : `<button class="btn-qty" onclick="updateQty(${item.id},1)">ADD</button>`}
+        </div>
+      </div>`;
+    });
+    document.getElementById("menuDisplay").innerHTML = html || "<p style='text-align:center;'>Loading items...</p>";
+  }
+
+  function updateQty(id, v) {
+    cart[id] = (cart[id] || 0) + v;
+    if(cart[id] <= 0) delete cart[id];
+    let total = 0;
+    menuItems.forEach(i => { if(cart[i.id]) total += cart[i.id] * i.price; });
+    document.getElementById("totalBill").innerText = "₹" + total;
+    render();
+  }
+
+  function filterMenu(cat, el) {
+    currentFilter = cat;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  }
+
+  function openOrderPopup() { if(Object.keys(cart).length === 0) return alert("Pahle items select karein!"); document.getElementById("orderModal").style.display = "block"; }
+  function closeModal() { document.getElementById("orderModal").style.display = "none"; }
+  function updatePlaceholder() { document.getElementById('custInfo').placeholder = (document.getElementById('orderMode').value === "Dining") ? "टेबल नंबर" : "पूरा पता (Address)"; }
+
+  function sendToWhatsApp() {
+    const name = document.getElementById("custName").value;
+    const mode = document.getElementById("orderMode").value;
+    const info = document.getElementById("custInfo").value;
+    if(!name || !info) return alert("Details bhariye!");
+    
+    let total = 0, list = "";
+    menuItems.forEach(item => {
+      if(cart[item.id]) {
+        let typeIcon = item.type.toLowerCase().includes("non") ? "🔴" : "🟢";
+        list += `${typeIcon} *${item.name}* (x${cart[item.id]}) - ₹${item.price * cart[item.id]}%0A`;
+        total += item.price * cart[item.id];
+      }
+    });
+    
+    const msg = `🍽️ *नया डिजिटल ऑर्डर प्राप्त हुआ*%0A━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A%0A👤 *नाम:* ${name}%0A🍴 *प्रकार:* ${mode}%0A📍 *${mode==='Dining'?'टेबल नं.':'पता'}:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${list}%0A💵 *कुल बिल: ₹${total}*%0A━━━━━━━━━━━━━━━━━━%0A📌 *महत्वपूर्ण सूचना:*%0Aमेन्यू के रेट MRP के हिसाब से बदल सकते हैं।%0A%0A🙏 *धन्यवाद!*`;
+    window.open(`https://wa.me/918377996928?text=${msg}`);
+    closeModal();
+  }
+
+  fetchMenu();
+</script>
+</body>
+</html>
