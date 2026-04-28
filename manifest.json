@@ -1,10 +1,6 @@
 {
-  "name": "Hotel Jagdamba",
-  "short_name": "Jagdamba",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#FFD700",
+  "short_name": "Hotel Jagdamba",
+  "name": "Hotel Jagdamba Dhaba & Restaurant",
   "icons": [
     {
       "src": "1000172945.png",
@@ -16,5 +12,11 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "start_url": "index.html",
+  "background_color": "#f8f9fa",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0a0a0a",
+  "description": "Swad jo dil jeet le - Digital Menu"
 }
