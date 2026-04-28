@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,82 +10,75 @@
   :root { --gold: #FFD700; --red: #ff4757; --green: #2ecc71; --dark: #0a0a0a; }
   body { margin:0; font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color:#333; padding-bottom:180px; }
   
+  /* Background fix with delicious food as requested */
   .header {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80');
-    background-size: cover; padding: 35px 15px; text-align: center; border-bottom: 3px solid var(--gold);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+    padding: 35px 15px; text-align: center; border-bottom: 3px solid var(--gold);
     border-radius: 0 0 40px 40px; color: white;
   }
-
-  /* Logo Fix: GitHub hosted reliable link */
-  .logo-img {
-    width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--gold);
-    margin-bottom: 12px; background: #000; object-fit: contain;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-  }
-
   .header h1 { 
-    margin: 0; font-size: 20px; background: linear-gradient(to right, #fff, var(--gold), #fff);
+    margin: 0; font-size: 22px; background: linear-gradient(to right, #fff, var(--gold), #fff);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
-    letter-spacing: 1px; font-weight: 800;
+    letter-spacing: 1px;
   }
   .header p { color: var(--gold); font-size: 13px; margin-top: 5px; font-weight: bold; }
   
-  .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; position: sticky; top: 0; z-index: 100; background: #f8f9fa; border-bottom: 1px solid #eee; }
+  .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; position: sticky; top: 0; z-index: 100; background: #f8f9fa; }
   .cat-scroll::-webkit-scrollbar { display: none; }
   .chip { background: white; padding: 10px 22px; border-radius: 25px; white-space: nowrap; font-size: 13px; border: 1px solid #eee; cursor: pointer; color: #666; font-weight: 600; }
   .chip.active { background: #333; color: white; border-color: #333; }
   
   .container { padding: 10px; }
   .item-card { display: flex; background: white; margin-bottom: 12px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); align-items: center; padding: 12px; }
-  .item-img { width: 85px; height: 85px; border-radius: 15px; object-fit: cover; margin-right: 12px; }
+  .item-img { width: 90px; height: 90px; border-radius: 15px; object-fit: cover; margin-right: 12px; }
   .item-details { flex: 1; }
   
-  .veg-icon, .nonveg-icon { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
-  .veg-icon { border: 1px solid var(--green); }
+  .veg-icon { width: 14px; height: 14px; border: 1px solid var(--green); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
   .veg-icon span { width: 7px; height: 7px; background: var(--green); border-radius: 50%; }
-  .nonveg-icon { border: 1px solid var(--red); }
+  .nonveg-icon { width: 14px; height: 14px; border: 1px solid var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
   .nonveg-icon span { width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
   
-  .item-name { font-weight: bold; font-size: 15px; color: #1a1a1a; }
-  .item-desc { font-size: 11px; color: #777; margin: 2px 0; line-height: 1.2; }
-  .item-price { font-weight: 800; color: #000; font-size: 15px; margin-top: 4px; }
+  .item-name { font-weight: bold; font-size: 16px; color: #1a1a1a; }
+  .item-desc { font-size: 11px; color: #777; margin: 3px 0; line-height: 1.3; }
+  .item-price { font-weight: 800; color: #000; font-size: 15px; margin-top: 5px; }
   .btn-qty { background: white; color: var(--red); border: 1px solid #eee; padding: 8px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; }
   
-  .premium-connect { background: #fff; border: 1px solid #eee; border-radius: 25px; padding: 25px 15px; margin: 20px 10px 100px 10px; text-align: center; }
-  .connect-btn { display: inline-block; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 14px; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
-
-  .footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-radius: 25px 25px 0 0; z-index: 1000; }
-  .whatsapp-btn { background: var(--green); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: 800; cursor: pointer; }
+  .premium-connect { background: #fff; border: 1px solid #eee; border-radius: 25px; padding: 25px 15px; margin: 30px 15px; text-align: center; }
+  .connect-btn { display: inline-block; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 15px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
   
   .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
   .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 30px; width: 85%; max-width: 400px; text-align: center; }
   .modal-input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; }
-  .confirm-btn { background: var(--green); width: 100%; padding: 18px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+  .confirm-btn { background: var(--green); width: 100%; padding: 18px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+  
+  .footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-radius: 25px 25px 0 0; }
+  .whatsapp-btn { background: var(--green); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: 800; cursor: pointer; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <img src="https://raw.githubusercontent.com/Shaktinathjha/hotel/main/1000172945.png" class="logo-img" alt="HJ Logo" onerror="this.src='https://via.placeholder.com/100/000000/FFD700?text=HJ'">
-  <h1>HOTEL JAGDAMBA DHABA & RESTAURANT</h1>
+  <h1>Hotel Jagdamba Dhaba & Restaurant</h1>
   <p>स्वाद जो दिल जीत ले ❤️</p>
 </div>
 
 <div class="cat-scroll">
   <div class="chip active" onclick="filterMenu('All', this)">All Menu</div>
-  <div class="chip" onclick="filterMenu('SPECIAL OFFERS', this)">Offers</div>
-  <div class="chip" onclick="filterMenu('CHAI & SNACKS', this)">Snacks</div>
+  <div class="chip" onclick="filterMenu('OFFERS', this)">Offers</div>
+  <div class="chip" onclick="filterMenu('SNACKS', this)">Snacks</div>
   <div class="chip" onclick="filterMenu('FAST FOOD', this)">Fast Food</div>
   <div class="chip" onclick="filterMenu('THALIS', this)">Thalis</div>
   <div class="chip" onclick="filterMenu('MAIN COURSE', this)">Main Course</div>
   <div class="chip" onclick="filterMenu('BEVERAGES', this)">Beverages</div>
 </div>
 
-<div class="container" id="menuDisplay"></div>
+<div class="container" id="menuDisplay">Menu Loading...</div>
 
 <div class="premium-connect">
-  <h3 style="margin-bottom: 12px; font-size: 16px;">Koi help chahiye?</h3>
-  <a href="tel:8377996928" class="connect-btn">Call Hotel Jagdamba</a>
+  <h3 style="margin-bottom: 12px; font-size: 16px;">Any Special Request?</h3>
+  <a href="tel:8377996928" class="connect-btn">Connect to Hotel Jagdamba</a>
 </div>
 
 <div id="orderModal" class="modal">
@@ -104,7 +97,7 @@
 
 <div class="footer">
   <div>
-    <div style="font-size:11px; color:#666; font-weight: bold;">TOTAL BILL</div>
+    <div style="font-size:11px; color:#666; font-weight: bold;">GRAND TOTAL</div>
     <div id="totalBill" style="font-size:22px; font-weight:900;">₹0</div>
   </div>
   <button class="whatsapp-btn" onclick="openOrderPopup()">Confirm Order</button>
@@ -122,41 +115,51 @@
     try {
       const response = await fetch(sheetURL);
       const data = await response.text();
-      const rows = data.split("\n").slice(1);
-      menuItems = rows.filter(r => r.trim() !== "").map((r, i) => {
-        const c = r.split(",");
-        return { id: i, name: c[0], price: parseInt(c[1]), cat: c[2], type: c[3], desc: c[4], img: c[5] };
+      const rows = data.split("\n").slice(1); 
+      
+      menuItems = rows.filter(row => row.trim() !== "").map((row, index) => {
+        const cols = row.split(",");
+        return {
+          id: index,
+          name: cols[0]?.trim() || "Item",
+          price: parseInt(cols[1]?.trim()) || 0,
+          cat: cols[2]?.trim() || "General",
+          type: cols[3]?.trim() || "Veg",
+          desc: cols[4]?.trim() || "",
+          img: cols[5]?.trim() || ""
+        };
       });
       render();
-    } catch (e) { document.getElementById("menuDisplay").innerHTML = "Menu loading..."; }
+    } catch (e) { document.getElementById("menuDisplay").innerHTML = "Loading..."; }
   }
 
   function render() {
     let html = "";
     let list = currentFilter === "All" ? menuItems : menuItems.filter(i => i.cat.trim().toUpperCase() === currentFilter.toUpperCase());
+    
     list.forEach(item => {
       let q = cart[item.id] || 0;
-      let icon = item.type.toLowerCase().includes("non") ? "nonveg-icon" : "veg-icon";
+      let iconClass = item.type.toLowerCase().includes("non") ? "nonveg-icon" : "veg-icon";
       html += `<div class="item-card">
         <img src="${item.img || 'https://via.placeholder.com/90'}" class="item-img" onerror="this.src='https://via.placeholder.com/90'">
         <div class="item-details">
-          <div class="${icon}"><span></span></div>
+          <div class="${iconClass}"><span></span></div>
           <div class="item-name">${item.name}</div>
           <div class="item-desc">${item.desc}</div>
           <div class="item-price">₹${item.price}</div>
         </div>
         <div>
           ${q > 0 ? `<div style="display:flex; gap:10px; background:var(--red); color:white; padding:7px 12px; border-radius:12px; font-weight:bold;">
-            <span onclick="updateQty(${item.id},-1)">−</span> <span>${q}</span> <span onclick="updateQty(${item.id},1)">+</span>
+            <span onclick="updateQty(${item.id},-1)" style="cursor:pointer;">−</span> <span>${q}</span> <span onclick="updateQty(${item.id},1)" style="cursor:pointer;">+</span>
           </div>` : `<button class="btn-qty" onclick="updateQty(${item.id},1)">ADD</button>`}
         </div>
       </div>`;
     });
-    document.getElementById("menuDisplay").innerHTML = html || "<p style='text-align:center;'>Loading items...</p>";
+    document.getElementById("menuDisplay").innerHTML = html || "<p style='text-align:center; padding:20px;'>Is category mein abhi koi item nahi hai.</p>";
   }
 
-  function updateQty(id, v) {
-    cart[id] = (cart[id] || 0) + v;
+  function updateQty(id, val) {
+    cart[id] = (cart[id] || 0) + val;
     if(cart[id] <= 0) delete cart[id];
     let total = 0;
     menuItems.forEach(i => { if(cart[i.id]) total += cart[i.id] * i.price; });
@@ -171,7 +174,7 @@
     render();
   }
 
-  function openOrderPopup() { if(Object.keys(cart).length === 0) return alert("Pahle items select karein!"); document.getElementById("orderModal").style.display = "block"; }
+  function openOrderPopup() { if(Object.keys(cart).length === 0) return alert("Items select karein!"); document.getElementById("orderModal").style.display = "block"; }
   function closeModal() { document.getElementById("orderModal").style.display = "none"; }
   function updatePlaceholder() { document.getElementById('custInfo').placeholder = (document.getElementById('orderMode').value === "Dining") ? "टेबल नंबर" : "पूरा पता (Address)"; }
 
@@ -181,16 +184,16 @@
     const info = document.getElementById("custInfo").value;
     if(!name || !info) return alert("Details bhariye!");
     
-    let total = 0, list = "";
+    let total = 0, itemsList = "";
     menuItems.forEach(item => {
       if(cart[item.id]) {
-        let typeIcon = item.type.toLowerCase().includes("non") ? "🔴" : "🟢";
-        list += `${typeIcon} *${item.name}* (x${cart[item.id]}) - ₹${item.price * cart[item.id]}%0A`;
+        let icon = item.type.toLowerCase().includes("non") ? "🔴" : "🟢";
+        itemsList += `${icon} *${item.name}* (x${cart[item.id]}) - ₹${item.price * cart[item.id]}%0A`;
         total += item.price * cart[item.id];
       }
     });
-    
-    const msg = `🍽️ *नया डिजिटल ऑर्डर प्राप्त हुआ*%0A━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A%0A👤 *नाम:* ${name}%0A🍴 *प्रकार:* ${mode}%0A📍 *${mode==='Dining'?'टेबल नं.':'पता'}:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${list}%0A💵 *कुल बिल: ₹${total}*%0A━━━━━━━━━━━━━━━━━━%0A📌 *महत्वपूर्ण सूचना:*%0Aमेन्यू के रेट MRP के हिसाब से बदल सकते हैं।%0A%0A🙏 *धन्यवाद!*`;
+
+    const msg = `🍽️ *नया डिजिटल ऑर्डर प्राप्त हुआ*%0A━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A%0A👤 *ग्राहक नाम:* ${name}%0A🍴 *ऑर्डर प्रकार:* ${mode}%0A📍 *${mode==='Dining'?'टेबल नं.':'पता'}:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${itemsList}%0A💵 *कुल बिल: ₹${total}*%0A━━━━━━━━━━━━━━━━━━%0A📌 *महत्वपूर्ण सूचना:*%0Aमेन्यू के रेट बदल सकते हैं।%0A%0A🙏 *धन्यवाद!*`;
     window.open(`https://wa.me/918377996928?text=${msg}`);
     closeModal();
   }
