@@ -1,204 +1,187 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Jagdamba Dhaba & Restaurant</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0a0a0a">
-<style>
-  :root { --gold: #FFD700; --red: #ff4757; --green: #2ecc71; --dark: #0a0a0a; }
-  body { margin:0; font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color:#333; padding-bottom:180px; }
-  
-  /* Background fix with delicious food as requested */
-  .header {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80');
-    background-size: cover;
-    background-position: center;
-    padding: 35px 15px; text-align: center; border-bottom: 3px solid var(--gold);
-    border-radius: 0 0 40px 40px; color: white;
-  }
-  .header h1 { 
-    margin: 0; font-size: 22px; background: linear-gradient(to right, #fff, var(--gold), #fff);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .header p { color: var(--gold); font-size: 13px; margin-top: 5px; font-weight: bold; }
-  
-  .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; position: sticky; top: 0; z-index: 100; background: #f8f9fa; }
-  .cat-scroll::-webkit-scrollbar { display: none; }
-  .chip { background: white; padding: 10px 22px; border-radius: 25px; white-space: nowrap; font-size: 13px; border: 1px solid #eee; cursor: pointer; color: #666; font-weight: 600; }
-  .chip.active { background: #333; color: white; border-color: #333; }
-  
-  .container { padding: 10px; }
-  .item-card { display: flex; background: white; margin-bottom: 12px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); align-items: center; padding: 12px; }
-  .item-img { width: 90px; height: 90px; border-radius: 15px; object-fit: cover; margin-right: 12px; }
-  .item-details { flex: 1; }
-  
-  .veg-icon { width: 14px; height: 14px; border: 1px solid var(--green); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
-  .veg-icon span { width: 7px; height: 7px; background: var(--green); border-radius: 50%; }
-  .nonveg-icon { width: 14px; height: 14px; border: 1px solid var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; border-radius: 2px; }
-  .nonveg-icon span { width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
-  
-  .item-name { font-weight: bold; font-size: 16px; color: #1a1a1a; }
-  .item-desc { font-size: 11px; color: #777; margin: 3px 0; line-height: 1.3; }
-  .item-price { font-weight: 800; color: #000; font-size: 15px; margin-top: 5px; }
-  .btn-qty { background: white; color: var(--red); border: 1px solid #eee; padding: 8px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; }
-  
-  .premium-connect { background: #fff; border: 1px solid #eee; border-radius: 25px; padding: 25px 15px; margin: 30px 15px; text-align: center; }
-  .connect-btn { display: inline-block; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 15px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
-  
-  .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-  .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 30px; width: 85%; max-width: 400px; text-align: center; }
-  .modal-input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; }
-  .confirm-btn { background: var(--green); width: 100%; padding: 18px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
-  
-  .footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); border-radius: 25px 25px 0 0; }
-  .whatsapp-btn { background: var(--green); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: 800; cursor: pointer; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Jagdamba Dhaba & Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --gold-grad: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728, #fcf6ba, #aa771c); }
+        body { margin:0; font-family: 'Montserrat', sans-serif; background: #000; color:white; padding-bottom:140px; overflow-x: hidden; }
+
+        /* UI ELEMENTS */
+        .banner-header { text-align: center; padding: 40px 15px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'); background-size: cover; border-bottom: 3px solid #bf953f; border-radius: 0 0 40px 40px; }
+        .main-title { font-family: 'Cinzel', serif; font-size: 28px; background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1.2; }
+
+        .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; position: sticky; top: 0; background: #000; z-index: 1000; }
+        .chip { background: #111; padding: 8px 18px; border-radius: 30px; border: 1px solid #333; color: #888; font-weight: 700; white-space: nowrap; cursor: pointer; }
+        .chip.active { background: var(--gold-grad); color: #000; border: none; }
+
+        .item-card { display: flex; background: #0a0a0a; margin: 10px 15px; border-radius: 18px; border: 1px solid #1a1a1a; padding: 12px; align-items: center; justify-content: space-between; }
+        .item-img { width: 65px; height: 65px; border-radius: 10px; object-fit: cover; border: 1px solid #333; }
+        .item-info { flex: 1; margin-left: 12px; }
+        .item-name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 5px; }
+        .item-price { color: #fcf6ba; font-weight: 800; margin-top: 4px; display: flex; align-items: center; }
+        .mrp-badge { font-size: 10px; background: rgba(191,149,63,0.2); color: #fcf6ba; border: 0.5px solid #bf953f; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
+
+        .glow-box { background: #fff; margin: 30px 15px; padding: 35px 20px; border-radius: 30px; text-align: center; color: #000; }
+        .glow-btn { background: var(--gold-grad); display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-radius: 50px; text-decoration: none; color: #000; font-weight: 800; margin-top: 20px; }
+        .btn-icon { background: #1a1a1a; color: #fcf6ba; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        .footer { position: fixed; bottom: 0; width: 100%; background: #000; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; box-sizing: border-box; z-index: 2000; }
+        .order-btn { background: var(--gold-grad); color: #000; padding: 12px 25px; border-radius: 10px; font-weight: 900; border: none; cursor: pointer; }
+
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
+        .modal-content { background: #111; margin: 10% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1.5px solid #bf953f; text-align: center; }
+        .modal-input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; }
+        .pay-option { background: #1a1a1a; padding: 12px; border-radius: 12px; flex: 1; border: 1px solid #333; color: #888; font-weight: 700; cursor: pointer; }
+        .pay-option.active { background: var(--gold-grad); color: #000; border: none; }
+
+        .pay-btn-direct { background: #00529b; color: white; padding: 15px; border-radius: 10px; font-weight: 800; margin-bottom: 10px; text-decoration: none; display: block; }
+    </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Hotel Jagdamba Dhaba & Restaurant</h1>
-  <p>स्वाद जो दिल जीत ले ❤️</p>
-</div>
+    <div class="banner-header">
+        <h1 class="main-title">HOTEL JAGDAMBA<br>DHABA & RESTAURANT</h1>
+        <div style="color: #fcf6ba; font-weight: 800; margin-top: 10px; letter-spacing: 1px; font-size: 12px;">🥘 स्वाद • सेवा • विश्वास 🥘</div>
+    </div>
 
-<div class="cat-scroll">
-  <div class="chip active" onclick="filterMenu('All', this)">All Menu</div>
-  <div class="chip" onclick="filterMenu('OFFERS', this)">Offers</div>
-  <div class="chip" onclick="filterMenu('SNACKS', this)">Snacks</div>
-  <div class="chip" onclick="filterMenu('FAST FOOD', this)">Fast Food</div>
-  <div class="chip" onclick="filterMenu('THALIS', this)">Thalis</div>
-  <div class="chip" onclick="filterMenu('MAIN COURSE', this)">Main Course</div>
-  <div class="chip" onclick="filterMenu('BEVERAGES', this)">Beverages</div>
-</div>
+    <div class="cat-scroll" id="catScroll"></div>
+    <div id="menuDisplay">Menu loading...</div>
 
-<div class="container" id="menuDisplay">Menu Loading...</div>
+    <div class="glow-box">
+        <div style="font-size: 20px;">👑</div>
+        <h2 style="margin: 10px 0; font-family: 'Cinzel';">Any Special Request?</h2>
+        <a href="tel:918377996928" class="glow-btn">
+            <div class="btn-icon">📞</div>
+            <span>Connect to Hotel Jagdamba</span>
+            <span style="font-size: 18px;">›</span>
+        </a>
+    </div>
 
-<div class="premium-connect">
-  <h3 style="margin-bottom: 12px; font-size: 16px;">Any Special Request?</h3>
-  <a href="tel:8377996928" class="connect-btn">Connect to Hotel Jagdamba</a>
-</div>
+    <div class="footer">
+        <div id="totalBill" style="font-size: 22px; font-weight: 900; color: #fcf6ba;">₹0</div>
+        <button class="order-btn" onclick="openOrderPopup()">Confirm Order</button>
+    </div>
 
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <h2 style="margin-top:0;">ऑर्डर की जानकारी</h2>
-    <input type="text" id="custName" class="modal-input" placeholder="आपका नाम">
-    <select id="orderMode" class="modal-input" onchange="updatePlaceholder()">
-      <option value="Dining">Dining (होटल में खाना)</option>
-      <option value="Delivery">Delivery (घर पर मंगवाना)</option>
-    </select>
-    <input type="text" id="custInfo" class="modal-input" placeholder="टेबल नंबर">
-    <button class="confirm-btn" onclick="sendToWhatsApp()">WhatsApp पर भेजें</button>
-    <p onclick="closeModal()" style="color:#888; margin-top:15px; cursor:pointer; font-size: 14px;">वापस जाएँ</p>
-  </div>
-</div>
-
-<div class="footer">
-  <div>
-    <div style="font-size:11px; color:#666; font-weight: bold;">GRAND TOTAL</div>
-    <div id="totalBill" style="font-size:22px; font-weight:900;">₹0</div>
-  </div>
-  <button class="whatsapp-btn" onclick="openOrderPopup()">Confirm Order</button>
-</div>
-
-<script>
-  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
-
-  const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
-  let menuItems = [];
-  let cart = {};
-  let currentFilter = "All";
-
-  async function fetchMenu() {
-    try {
-      const response = await fetch(sheetURL);
-      const data = await response.text();
-      const rows = data.split("\n").slice(1); 
-      
-      menuItems = rows.filter(row => row.trim() !== "").map((row, index) => {
-        const cols = row.split(",");
-        return {
-          id: index,
-          name: cols[0]?.trim() || "Item",
-          price: parseInt(cols[1]?.trim()) || 0,
-          cat: cols[2]?.trim() || "General",
-          type: cols[3]?.trim() || "Veg",
-          desc: cols[4]?.trim() || "",
-          img: cols[5]?.trim() || ""
-        };
-      });
-      render();
-    } catch (e) { document.getElementById("menuDisplay").innerHTML = "Loading..."; }
-  }
-
-  function render() {
-    let html = "";
-    let list = currentFilter === "All" ? menuItems : menuItems.filter(i => i.cat.trim().toUpperCase() === currentFilter.toUpperCase());
-    
-    list.forEach(item => {
-      let q = cart[item.id] || 0;
-      let iconClass = item.type.toLowerCase().includes("non") ? "nonveg-icon" : "veg-icon";
-      html += `<div class="item-card">
-        <img src="${item.img || 'https://via.placeholder.com/90'}" class="item-img" onerror="this.src='https://via.placeholder.com/90'">
-        <div class="item-details">
-          <div class="${iconClass}"><span></span></div>
-          <div class="item-name">${item.name}</div>
-          <div class="item-desc">${item.desc}</div>
-          <div class="item-price">₹${item.price}</div>
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:#fcf6ba; font-family:'Cinzel';">Finalize Order</h2>
+            <input type="text" id="custName" class="modal-input" placeholder="आपका नाम">
+            <select id="orderMode" class="modal-input" onchange="updatePlaceholder()">
+                <option value="Dining">Dining 🍽️</option>
+                <option value="Delivery">Home Delivery 🚚</option>
+            </select>
+            <input type="text" id="custInfo" class="modal-input" placeholder="टेबल नंबर">
+            <div style="display:flex; gap:10px; margin:10px 0;">
+                <div id="payUPI" class="pay-option active" onclick="setPayMode('UPI')">ONLINE 💳</div>
+                <div id="payCOD" class="pay-option" onclick="setPayMode('COD')">CASH 💵</div>
+            </div>
+            <button class="order-btn" style="width: 100%; margin-top: 10px; padding: 15px;" onclick="processOrder()">Confirm & Pay Now</button>
+            <p onclick="closeModal()" style="color:#888; font-size:12px; margin-top:15px; cursor:pointer;">← Add More Items</p>
         </div>
-        <div>
-          ${q > 0 ? `<div style="display:flex; gap:10px; background:var(--red); color:white; padding:7px 12px; border-radius:12px; font-weight:bold;">
-            <span onclick="updateQty(${item.id},-1)" style="cursor:pointer;">−</span> <span>${q}</span> <span onclick="updateQty(${item.id},1)" style="cursor:pointer;">+</span>
-          </div>` : `<button class="btn-qty" onclick="updateQty(${item.id},1)">ADD</button>`}
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content" style="background: #fff; color: #000;">
+            <h3>Payment Details</h3>
+            <a id="directUPILink" href="#" class="pay-btn-direct">🚀 Open Payment App</a>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 15px;">
+                <img id="qrImg" src="" style="width:180px; height:180px;">
+                <p style="font-weight:bold; font-size:12px; color:#bf953f;">Q334332463@ybl</p>
+            </div>
+            <button class="order-btn" style="width:100%;" onclick="finalizeAndWhatsApp()">Finish & Send WhatsApp</button>
         </div>
-      </div>`;
-    });
-    document.getElementById("menuDisplay").innerHTML = html || "<p style='text-align:center; padding:20px;'>Is category mein abhi koi item nahi hai.</p>";
-  }
+    </div>
 
-  function updateQty(id, val) {
-    cart[id] = (cart[id] || 0) + val;
-    if(cart[id] <= 0) delete cart[id];
-    let total = 0;
-    menuItems.forEach(i => { if(cart[i.id]) total += cart[i.id] * i.price; });
-    document.getElementById("totalBill").innerText = "₹" + total;
-    render();
-  }
+    <script>
+        const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
+        const UPI_ID = "Q334332463@ybl";
+        let menuItems = [], cart = {}, currentFilter = "ALL", selectedPayMode = "UPI", waMsgFinal = "";
 
-  function filterMenu(cat, el) {
-    currentFilter = cat;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    render();
-  }
+        async function loadMenu() {
+            const resp = await fetch(sheetURL);
+            const data = await resp.text();
+            const rows = data.split("\n").slice(1);
+            const cats = new Set(["ALL"]);
+            menuItems = rows.filter(r => r.trim()).map((r, i) => {
+                const cols = r.split(",");
+                const p = parseInt(cols[1]);
+                const isMRP = isNaN(p) || p === 0;
+                cats.add(cols[2].trim().toUpperCase());
+                return { id: i, name: cols[0], price: isMRP ? 0 : p, isMRP: isMRP, cat: cols[2].trim().toUpperCase(), type: cols[3]?.toLowerCase() || "veg", img: cols[5] || 'https://via.placeholder.com/100' };
+            });
+            const scroll = document.getElementById("catScroll");
+            Array.from(cats).forEach(c => scroll.innerHTML += `<div class="chip ${c==='ALL'?'active':''}" onclick="filterMenu('${c}', this)">${c}</div>`);
+            render();
+        }
 
-  function openOrderPopup() { if(Object.keys(cart).length === 0) return alert("Items select karein!"); document.getElementById("orderModal").style.display = "block"; }
-  function closeModal() { document.getElementById("orderModal").style.display = "none"; }
-  function updatePlaceholder() { document.getElementById('custInfo').placeholder = (document.getElementById('orderMode').value === "Dining") ? "टेबल नंबर" : "पूरा पता (Address)"; }
+        function render() {
+            let html = "";
+            let list = currentFilter === "ALL" ? menuItems : menuItems.filter(i => i.cat === currentFilter);
+            list.forEach(i => {
+                let q = cart[i.id] || 0;
+                let sign = i.type.includes("non") ? "🔴" : "🟢";
+                let priceDisp = i.isMRP ? `₹0 <span class="mrp-badge">MRP</span>` : `₹${i.price}`;
+                html += `<div class="item-card">
+                    <img src="${i.img}" class="item-img">
+                    <div class="item-info">
+                        <div class="item-name">${sign} ${i.name}</div>
+                        <div class="item-price">${priceDisp}</div>
+                    </div>
+                    ${q > 0 ? `<div style="display:flex; gap:10px; font-weight:800; color:#fcf6ba;"><span onclick="updateQty(${i.id},-1)">−</span>${q}<span onclick="updateQty(${i.id},1)">+</span></div>` : `<button class="chip active" onclick="updateQty(${i.id},1)">ADD</button>`}
+                </div>`;
+            });
+            document.getElementById("menuDisplay").innerHTML = html;
+        }
 
-  function sendToWhatsApp() {
-    const name = document.getElementById("custName").value;
-    const mode = document.getElementById("orderMode").value;
-    const info = document.getElementById("custInfo").value;
-    if(!name || !info) return alert("Details bhariye!");
-    
-    let total = 0, itemsList = "";
-    menuItems.forEach(item => {
-      if(cart[item.id]) {
-        let icon = item.type.toLowerCase().includes("non") ? "🔴" : "🟢";
-        itemsList += `${icon} *${item.name}* (x${cart[item.id]}) - ₹${item.price * cart[item.id]}%0A`;
-        total += item.price * cart[item.id];
-      }
-    });
+        function updateQty(id, val) {
+            cart[id] = (cart[id] || 0) + val;
+            if(cart[id] <= 0) delete cart[id];
+            let total = 0; menuItems.forEach(i => { if(cart[i.id]) total += i.price * cart[i.id]; });
+            document.getElementById("totalBill").innerText = "₹" + total;
+            render();
+        }
 
-    const msg = `🍽️ *नया डिजिटल ऑर्डर प्राप्त हुआ*%0A━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A%0A👤 *ग्राहक नाम:* ${name}%0A🍴 *ऑर्डर प्रकार:* ${mode}%0A📍 *${mode==='Dining'?'टेबल नं.':'पता'}:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${itemsList}%0A💵 *कुल बिल: ₹${total}*%0A━━━━━━━━━━━━━━━━━━%0A📌 *महत्वपूर्ण सूचना:*%0Aमेन्यू के रेट बदल सकते हैं।%0A%0A🙏 *धन्यवाद!*`;
-    window.open(`https://wa.me/918377996928?text=${msg}`);
-    closeModal();
-  }
+        function filterMenu(c, el) { currentFilter = c; document.querySelectorAll('.chip').forEach(x => x.classList.remove('active')); el.classList.add('active'); render(); }
+        function setPayMode(m) { selectedPayMode = m; document.getElementById('payUPI').classList.toggle('active', m==='UPI'); document.getElementById('payCOD').classList.toggle('active', m==='COD'); }
+        function openOrderPopup() { if(Object.keys(cart).length === 0) return alert("Select items!"); document.getElementById("orderModal").style.display = "block"; }
+        function closeModal() { document.getElementById("orderModal").style.display = "none"; document.getElementById("paymentModal").style.display = "none"; }
+        function updatePlaceholder() { document.getElementById('custInfo').placeholder = document.getElementById('orderMode').value === "Dining" ? "टेबल नंबर" : "पूरा पता"; }
 
-  fetchMenu();
-</script>
+        function processOrder() {
+            const name = document.getElementById("custName").value;
+            const info = document.getElementById("custInfo").value;
+            const mode = document.getElementById("orderMode").value;
+            if(!name || !info) return alert("नाम और विवरण भरें!");
+
+            let total = 0, itemsMsg = "";
+            menuItems.forEach(i => { if(cart[i.id]) {
+                let sub = i.price * cart[i.id];
+                let sign = i.type.includes("non") ? "🔴" : "🟢";
+                itemsMsg += `${sign} ${i.name} ×${cart[i.id]}  ➜ ₹${sub}%0A`;
+                total += sub;
+            }});
+
+            const pStatus = selectedPayMode === 'UPI' ? "✅ Online (Paid)" : "⌛ COD (Pending)";
+            waMsgFinal = `🍽️✨ *नया डिजिटल ऑर्डर प्राप्त हुआ* ✨🍽️%0A━━━━━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A🥘 *स्वाद भी • सेवा भी • विश्वास भी*%0A%0A👤 *ग्राहक नाम:* ${name}%0A🍴 *ऑर्डर प्रकार:* ${mode}%0A📍 *विवरण:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${itemsMsg}%0A━━━━━━━━━━━━━━━━━━━━━━%0A💵 *कुल बिल: ₹${total}*%0A💳 *पेमेंट स्टेटस: ${pStatus}*%0A%0A🧾 *ऑर्डर तैयार किया जा रहा है...*%0A🙏 *कृपया प्रतीक्षा करें*%0A%0A━━━━━━━━━━━━━━━━━━━━━━%0A❤️ *धन्यवाद!*%0A*फिर से सेवा का मौका दीजिए* 😊`;
+
+            if(selectedPayMode === 'UPI') {
+                const upi = `upi://pay?pa=${UPI_ID}&pn=Jagdamba&am=${total}&cu=INR`;
+                document.getElementById("directUPILink").href = upi;
+                document.getElementById("qrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upi)}`;
+                document.getElementById("orderModal").style.display = "none";
+                document.getElementById("paymentModal").style.display = "block";
+            } else { finalizeAndWhatsApp(); }
+        }
+
+        function finalizeAndWhatsApp() {
+            window.open(`https://wa.me/918377996928?text=${waMsgFinal}`);
+            closeModal();
+        }
+        loadMenu();
+    </script>
 </body>
 </html>
