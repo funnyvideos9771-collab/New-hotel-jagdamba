@@ -90,7 +90,7 @@
             <a id="directUPILink" href="#" class="pay-btn-direct">🚀 Open Payment App</a>
             <div style="background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 15px;">
                 <img id="qrImg" src="" style="width:180px; height:180px;">
-                <p style="font-weight:bold; font-size:12px; color:#bf953f;">Paytmqr6ugwow@ptys</p>
+                <p style="font-weight:bold; font-size:12px; color:#bf953f;">Q334332463@ybl</p>
             </div>
             <button class="order-btn" style="width:100%;" onclick="finalizeAndWhatsApp()">Finish & Send WhatsApp</button>
         </div>
@@ -98,7 +98,7 @@
 
     <script>
         const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
-        const UPI_ID = "Paytmqr6ugwow@ptys";
+        const UPI_ID = "Q334332463@ybl";
         let menuItems = [], cart = {}, currentFilter = "ALL", selectedPayMode = "UPI", waMsgFinal = "";
 
         async function loadMenu() {
