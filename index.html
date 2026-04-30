@@ -1,234 +1,737 @@
 <!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Jagdamba - Final Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold-grad: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728, #fcf6ba, #aa771c);
-            --gold-glow: 0 0 20px rgba(191, 149, 63, 0.7);
-            --dark-box: #0a0a0a;
-            --border-color: #1a1a1a;
-        }
+  <html lang="hi">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Hotel Jagdamba - Menu & Order</title>
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <style>
+          :root {
+              --gold-grad: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728, #fcf6ba, #aa771c);
+              --gold-glow: 0 0 20px rgba(191, 149, 63, 0.7);
+              --dark-box: #0a0a0a;
+              --border-color: #1a1a1a;
+              --gold: #bf953f;
+              --gold-light: #fcf6ba;
+          }
+          * { box-sizing: border-box; }
+          body { margin: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; padding-bottom: 150px; overflow-x: hidden; }
+          .glow-text { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
 
-        body { 
-            margin: 0; 
-            font-family: 'Montserrat', sans-serif; 
-            background: #000; 
-            color: white; 
-            padding-bottom: 150px; 
-            overflow-x: hidden; 
-        }
-        
-        .glow-text { 
-            background: var(--gold-grad); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            font-weight: 900; 
-        }
+          .hj-logo { display: inline-flex; align-items: center; justify-content: center; flex-direction: column; }
+          .hj-logo svg { display: block; }
 
-        .banner-header { 
-            text-align: center; 
-            padding: 45px 15px; 
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800'); 
-            background-size: cover; 
-            border-bottom: 3px solid #bf953f; 
-            border-radius: 0 0 30px 30px;
-        }
-        .main-title { font-family: 'Cinzel', serif; font-size: 30px; margin: 0; }
+          /* === HEADER with restaurant food bg === */
+          .banner-header {
+              text-align: center;
+              padding: 60px 15px 50px;
+              background:
+                  linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.95) 100%),
+                  url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1400&q=80');
+              background-size: cover;
+              background-position: center;
+              border-bottom: 3px solid var(--gold);
+              border-radius: 0 0 30px 30px;
+              position: relative;
+          }
+          .banner-header::after { content:''; position:absolute; left:0; right:0; bottom:-3px; height:3px; background: var(--gold-grad); }
+          .main-title { font-family: 'Cinzel', serif; font-size: 38px; margin: 10px 0 0; letter-spacing: 2px; text-shadow: 0 2px 10px rgba(0,0,0,0.85); }
+          .brand-sub { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; }
+          .brand-sub .line { height:1px; width:36px; background: var(--gold); opacity:.85; }
+          .brand-sub .diamond { color: var(--gold); font-size: 10px; }
+          .brand-sub p { letter-spacing: 5px; color:#fcf6ba; font-size:13px; margin:0; font-weight:800; text-shadow: 0 2px 6px rgba(0,0,0,0.85); }
 
-        .cat-container { display: flex; align-items: center; padding: 15px; gap: 12px; position: sticky; top: 0; background: #000; z-index: 1000; }
-        .switch { position: relative; display: inline-block; width: 50px; height: 26px; flex-shrink: 0; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ff3333; transition: .4s; border-radius: 34px; border: 1px solid #444; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #00c853; border-color: #222; }
-        input:checked + .slider:before { transform: translateX(24px); }
+          .cat-container { display: flex; flex-direction: column; padding: 12px 15px; gap: 10px; position: sticky; top: 0; background: #000; z-index: 1000; }
+          .type-filter { display: flex; gap: 8px; justify-content: center; }
+          .type-btn { flex: 1; padding: 8px 10px; border-radius: 30px; border: 1.5px solid #333; background: #111; color: #aaa; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
+          .type-btn .dot-indicator { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+          .type-btn .dot-indicator.veg { background: #00c853; }
+          .type-btn .dot-indicator.nonveg { background: #ff3333; }
+          .type-btn .dot-indicator.all { background: linear-gradient(90deg, #00c853 50%, #ff3333 50%); }
+          .type-btn.active.all { background: var(--gold-grad); color: #000; border-color: transparent; box-shadow: var(--gold-glow); }
+          .type-btn.active.veg { background: #00c853; color: #fff; border-color: #00c853; box-shadow: 0 0 15px rgba(0,200,83,0.6); }
+          .type-btn.active.nonveg { background: #ff3333; color: #fff; border-color: #ff3333; box-shadow: 0 0 15px rgba(255,51,51,0.6); }
+          .cat-scroll { display: flex; overflow-x: auto; gap: 10px; flex: 1; scrollbar-width: none; }
+          .cat-scroll::-webkit-scrollbar { display: none; }
+          .chip { background: #111; padding: 10px 20px; border-radius: 30px; border: 1px solid #333; color: #aaa; font-weight: 800; white-space: nowrap; font-size: 13px; cursor: pointer; user-select: none; }
+          .chip.active { background: var(--gold-grad); color: #000; border: none; box-shadow: var(--gold-glow); font-weight: 900; }
+          .item-card { display: flex; background: var(--dark-box); margin: 12px 15px; border-radius: 18px; border: 1px solid var(--border-color); padding: 15px; align-items: center; transition: all 0.3s ease-out; }
+          .item-card.highlight { transform: scale(1.04); background: #111; border: 1.5px solid var(--gold); box-shadow: var(--gold-glow); }
+          .item-img { width: 75px; height: 75px; border-radius: 12px; object-fit: cover; border: 1.5px solid #333; background: #111; }
+          .item-info { flex: 1; margin-left: 15px; min-width: 0; }
+          .item-type-sign { width: 14px; height: 14px; border: 1px solid white; display: inline-flex; align-items: center; justify-content: center; margin-right: 6px; border-radius: 3px; vertical-align: middle; }
+          .item-type-sign div { width: 7px; height: 7px; border-radius: 1px; }
+          .item-name { font-weight: 800; font-size: 16px; margin-bottom: 3px; }
+          .item-desc { font-size: 11px; color: #888; margin-bottom: 5px; line-height: 1.4; }
+          .item-price { color: var(--gold-light); font-weight: 900; font-size: 18px; }
+          .qty-box { display: flex; gap: 14px; font-weight: 900; color: var(--gold-light); font-size: 18px; align-items: center; }
+          .qty-box span { font-size: 26px; cursor: pointer; color: #fff; user-select: none; width: 26px; text-align: center; }
+          .empty-msg { text-align: center; color: #666; padding: 40px 20px; font-size: 14px; }
+          .loading-msg { text-align: center; color: var(--gold-light); padding: 40px 20px; font-size: 14px; }
+          .request-box { background: var(--dark-box); margin: 25px 15px; padding: 22px; border-radius: 20px; border: 1.5px solid var(--gold); text-align: center; box-shadow: var(--gold-glow); }
+          .floating-call { background: var(--gold-grad); padding: 16px; border-radius: 50px; text-decoration: none; color: #000; font-weight: 900; margin: 0 15px 25px 15px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--gold-glow); animation: float 3s infinite ease-in-out; }
+          @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+          .cart-bar { position: fixed; bottom: 20px; left: 15px; right: 15px; background: var(--gold-grad); height: 65px; border-radius: 18px; display: none; align-items: center; justify-content: space-between; padding: 0 25px; color: #000; font-weight: 900; z-index: 2000; animation: cartPulse 1.5s infinite; cursor: pointer; }
+          @keyframes cartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+          .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); overflow-y: auto; }
+          .modal-content { background: #080808; margin: 4% auto; padding: 30px 25px; border-radius: 25px; width: 92%; max-width: 480px; border: 2px solid var(--gold); text-align: center; }
+          .modal-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1.5px solid #333; background: #000; color: #fff; box-sizing: border-box; font-family: 'Montserrat'; font-weight: 600; font-size: 14px; }
+          .pay-options { display: flex; gap: 15px; margin-top: 20px; }
+          .pay-btn { flex: 1; padding: 15px; border-radius: 12px; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; box-shadow: var(--gold-glow); background: var(--gold-grad); color: #000; font-family: 'Montserrat'; }
+          .pay-btn span { font-weight: 900; font-size: 16px; }
+          .pay-btn small { font-weight: 700; font-size: 11px; opacity: 0.8; }
+          .pay-btn.secondary { background: #1a1a1a; color: #fff; box-shadow: none; border: 1.5px solid #333; }
 
-        .cat-scroll { display: flex; overflow-x: auto; gap: 10px; flex: 1; scrollbar-width: none; }
-        .chip { background: #111; padding: 10px 20px; border-radius: 30px; border: 1px solid #333; color: #aaa; font-weight: 800; white-space: nowrap; font-size: 13px; }
-        .chip.active { background: var(--gold-grad); color: #000; border: none; box-shadow: var(--gold-glow); font-weight: 900; }
+          /* ===== BILL CARD - sized for A4-friendly capture (700px wide → ~A4 ratio) ===== */
+          .bill-card {
+              background: #000;
+              border: 2.5px solid var(--gold);
+              border-radius: 22px;
+              padding: 28px 26px 24px;
+              text-align: left;
+              box-shadow: var(--gold-glow);
+              position: relative;
+              overflow: hidden;
+              color: #fff;
+              width: 700px;
+              max-width: 100%;
+              margin: 0 auto;
+          }
+          .bill-inner { border: 1.5px solid rgba(191,149,63,0.45); border-radius: 16px; padding: 22px 22px 18px; }
+          .bill-hero { text-align:center; padding-bottom: 4px; }
+          .bill-hero .hj-logo { margin: 0 auto 8px; }
+          .bill-hero h1 { font-family:'Cinzel', serif; font-size: 38px; margin: 6px 0 0; letter-spacing: 3px; line-height: 1; color: var(--gold); }
+          .bill-hero .sub { display:flex; align-items:center; justify-content:center; gap:12px; margin: 10px 0 4px; }
+          .bill-hero .sub .line { width:50px; height:1px; background: var(--gold); }
+          .bill-hero .sub .diamond { color: var(--gold); font-size: 11px; }
+          .bill-hero .sub p { margin:0; letter-spacing: 6px; color:#fcf6ba; font-size:14px; font-weight:800; }
+          .bill-hero .phone { color:#fcf6ba; font-size:15px; margin-top: 8px; font-weight:700; letter-spacing: 1px; }
+          .bill-hero .phone .pic { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center; border-radius:50%; background: var(--gold); color:#000; font-size:11px; margin-right:6px; }
 
-        .item-card { 
-            display: flex; 
-            background: var(--dark-box); 
-            margin: 12px 15px; 
-            border-radius: 18px; 
-            border: 1px solid var(--border-color); 
-            padding: 15px; 
-            align-items: center; 
-            transition: all 0.3s ease-out; 
-        }
-        .item-card.highlight { 
-            transform: scale(1.04); 
-            background: #111;
-            border: 1.5px solid #bf953f; 
-            box-shadow: var(--gold-glow); 
-        }
-        
-        .item-img { width: 75px; height: 75px; border-radius: 12px; object-fit: cover; border: 1.5px solid #333; }
-        .item-info { flex: 1; margin-left: 15px; }
-        .item-type-sign { width: 14px; height: 14px; border: 1px solid white; display: inline-flex; align-items: center; justify-content: center; margin-right: 6px; border-radius: 3px; }
-        .item-type-sign div { width: 7px; height: 7px; }
-        .item-name { font-weight: 800; font-size: 16px; margin-bottom: 3px; }
-        .item-desc { font-size: 11px; color: #888; margin-bottom: 5px; }
-        .item-price { color: #fcf6ba; font-weight: 900; font-size: 18px; }
+          .bill-divider { height: 1px; background: repeating-linear-gradient(90deg, var(--gold) 0 6px, transparent 6px 12px); margin: 14px 0; opacity: 0.7; }
+          .bill-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; font-size: 14px; }
+          .bill-meta > div { display: grid; grid-template-columns: 22px auto 1fr; gap: 8px; align-items:center; }
+          .bill-meta .ico { color: var(--gold); font-size: 16px; line-height:1; text-align:center; }
+          .bill-meta span.lbl { color: #cfc8b8; font-weight:600; white-space: nowrap; }
+          .bill-meta strong { color: #fff; font-weight: 800; text-align: right; }
 
-        .qty-box { display: flex; gap: 14px; font-weight: 900; color: #fcf6ba; font-size: 18px; align-items: center; }
-        .qty-box span { font-size: 26px; cursor: pointer; color: #fff; }
+          .bill-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+          .bill-table thead th { text-align: left; color: var(--gold-light); font-weight: 800; font-size: 13px; padding: 9px 6px; border-bottom: 1px dashed rgba(191,149,63,0.5); letter-spacing: 0.5px; }
+          .bill-table thead th:nth-child(2) { text-align: center; }
+          .bill-table thead th:nth-child(3), .bill-table thead th:nth-child(4) { text-align: right; }
+          .bill-table tbody td { padding: 11px 6px; color: #fff; border-bottom: 1px dashed rgba(255,255,255,0.08); vertical-align: top; font-weight:600; }
+          .bill-table .dot { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 8px; vertical-align: middle; }
+          .bill-table .dot.veg { background: #00c853; }
+          .bill-table .dot.nonveg { background: #ff3333; }
+          .bill-total { display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel', serif; font-size: 30px; color: var(--gold); font-weight: 900; padding: 14px 6px 10px; }
 
-        .request-box { background: var(--dark-box); margin: 25px 15px; padding: 22px; border-radius: 20px; border: 1.5px solid #bf953f; text-align: center; box-shadow: var(--gold-glow); }
-        .floating-call { background: var(--gold-grad); padding: 16px; border-radius: 50px; text-decoration: none; color: #000; font-weight: 900; margin: 0 15px 25px 15px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--gold-glow); animation: float 3s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+          .pay-status-box { margin-top: 12px; padding: 16px 20px; border-radius: 14px; border: 1.5px solid var(--gold); background: linear-gradient(180deg, rgba(191,149,63,0.10), rgba(191,149,63,0.02)); display:flex; align-items:center; gap:16px; }
+          .pay-status-box .ic { font-size: 32px; }
+          .pay-status-box .txt { flex:1; }
+          .pay-status-box .ttl { color: var(--gold); font-family:'Cinzel', serif; font-weight: 900; font-size: 20px; letter-spacing: 1.5px; }
+          .pay-status-box .sub { color:#cfc8b8; font-size: 12.5px; margin-top: 3px; font-weight:600; }
+          .pay-status-box.paid { border-color:#00c853; background: linear-gradient(180deg, rgba(0,200,83,0.10), rgba(0,200,83,0.02)); }
+          .pay-status-box.paid .ttl { color:#00e676; }
 
-        .cart-bar { position: fixed; bottom: 20px; left: 15px; right: 15px; background: var(--gold-grad); height: 65px; border-radius: 18px; display: none; align-items: center; justify-content: space-between; padding: 0 25px; color: #000; font-weight: 900; z-index: 2000; animation: cartPulse 1.5s infinite; }
-        @keyframes cartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+          /* QR scan section */
+          .scan-block { margin-top: 14px; display:grid; grid-template-columns: 150px 1fr; gap: 18px; align-items:center; padding: 12px 6px; }
+          .scan-qr { width: 150px; height: 150px; background:#fff; border-radius: 10px; padding: 7px; border: 1.5px solid var(--gold); }
+          .scan-qr img { width:100%; height:100%; display:block; }
+          .scan-info .head { display:flex; align-items:center; gap:10px; color: var(--gold); font-family:'Cinzel', serif; font-weight:900; font-size: 20px; letter-spacing: 1.5px; }
+          .scan-info .head .cart-ic { color: var(--gold); }
+          .scan-info .tag { color:#cfc8b8; font-size: 13px; margin: 5px 0 12px; font-weight:600; }
+          .scan-steps { display:flex; align-items:flex-start; gap:8px; }
+          .scan-step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; min-width:0; }
+          .scan-step .ic { width: 38px; height: 38px; border-radius:50%; border:1.5px solid var(--gold); color: var(--gold); display:flex; align-items:center; justify-content:center; font-size: 18px; position:relative; }
+          .scan-step .num { position:absolute; top:-7px; right:-7px; background: var(--gold); color:#000; font-size:10px; width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; }
+          .scan-step .lbl { font-size: 11px; color:#fcf6ba; font-weight:800; text-align:center; line-height:1.2; margin-top:3px; }
+          .scan-arrow { color: var(--gold); font-size: 16px; align-self:center; padding-top: 18px; }
 
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); }
-        .modal-content { background: #080808; margin: 10% auto; padding: 30px 25px; border-radius: 25px; width: 85%; border: 2px solid #bf953f; text-align: center; }
-        .modal-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1.5px solid #333; background: #000; color: #fff; box-sizing: border-box; font-family: 'Montserrat'; font-weight: 600; }
-        
-        .pay-options { display: flex; gap: 15px; margin-top: 20px; }
-        .pay-btn { flex: 1; padding: 15px; border-radius: 12px; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; box-shadow: var(--gold-glow); background: var(--gold-grad); color: #000; }
-        .pay-btn span { font-weight: 900; font-size: 16px; }
-        .pay-btn small { font-weight: 700; font-size: 11px; opacity: 0.8; }
-    </style>
-</head>
-<body>
+          .bill-thanks { text-align:center; padding: 8px 0 0; }
+          .bill-thanks .hindi { color: var(--gold-light); font-weight: 800; font-size: 16px; margin: 10px 0 4px; }
+          .bill-thanks .eng { color:#fff; font-size: 13px; font-weight:600; }
+          .bill-thanks .gen { color:#7a6f4f; font-size: 11px; margin-top: 8px; letter-spacing: 1px; }
 
-    <div class="banner-header">
-        <h1 class="main-title glow-text">HOTEL JAGDAMBA</h1>
-        <p style="letter-spacing: 4px; color:#fcf6ba; font-size:11px; margin:6px 0; font-weight:800;">DHABA & RESTAURANT</p>
-    </div>
+          .bill-footer-strip { margin-top: 16px; display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 14px 8px; border-top: 1px solid rgba(191,149,63,0.4); border-bottom: 1px solid rgba(191,149,63,0.4); }
+          .footer-cell { text-align:center; padding: 4px 4px; }
+          .footer-cell .ic { color: var(--gold); font-size: 22px; margin-bottom: 5px; }
+          .footer-cell .ttl { color:#fff; font-size: 12px; font-weight:800; line-height:1.3; }
+          .footer-cell .sub { color:#bf953f; font-size: 11px; margin-top: 4px; font-weight:700; }
+          .footer-cell + .footer-cell { border-left: 1px solid rgba(191,149,63,0.25); }
 
-    <div class="cat-container">
-        <label class="switch"><input type="checkbox" id="vegToggle" checked onchange="renderMenu()"><span class="slider"></span></label>
-        <div class="cat-scroll" id="catScroll"></div>
-    </div>
+          .bill-actions { display: flex; gap: 10px; margin-top: 18px; max-width: 480px; margin-left:auto; margin-right:auto; }
 
-    <div id="menuDisplay"></div>
+          /* Hidden offscreen container used for color PDF capture */
+          #pdfStage { position: fixed; left: -10000px; top: 0; width: 760px; background: #000; padding: 30px; }
 
-    <div class="request-box">
-        <h3 class="glow-text" style="margin:0;">👑 Any Special Request?</h3>
-    </div>
+          /* Mobile bill modal: scale the 700px bill down to fit screen */
+          @media (max-width: 760px) {
+              #billModal .modal-content { padding: 14px 8px; max-width: 96%; }
+              #billModal .bill-card { transform: scale(0.52); transform-origin: top center; margin-bottom: -700px; }
+              .bill-actions { transform: none; max-width: 96%; }
+          }
+          @media (max-width: 420px) {
+              #billModal .bill-card { transform: scale(0.48); margin-bottom: -740px; }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="banner-header">
+          <div class="hj-logo">
+              <svg width="86" height="86" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                      <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stop-color="#bf953f"/>
+                          <stop offset="40%" stop-color="#fcf6ba"/>
+                          <stop offset="60%" stop-color="#b38728"/>
+                          <stop offset="100%" stop-color="#aa771c"/>
+                      </linearGradient>
+                  </defs>
+                  <g fill="url(#goldG)">
+                      <path d="M30 28 L42 14 L54 26 L60 10 L66 26 L78 14 L90 28 L84 40 L36 40 Z"/>
+                      <circle cx="42" cy="14" r="3"/>
+                      <circle cx="60" cy="10" r="3.5"/>
+                      <circle cx="78" cy="14" r="3"/>
+                  </g>
+                  <g fill="none" stroke="url(#goldG)" stroke-width="2.5" stroke-linecap="round">
+                      <path d="M14 78 Q4 70 14 60 Q22 56 30 64"/>
+                      <path d="M106 78 Q116 70 106 60 Q98 56 90 64"/>
+                      <path d="M18 84 Q10 90 18 96"/>
+                      <path d="M102 84 Q110 90 102 96"/>
+                  </g>
+                  <circle cx="60" cy="68" r="24" fill="none" stroke="url(#goldG)" stroke-width="2.5"/>
+                  <text x="60" y="78" text-anchor="middle" font-family="Cinzel, serif" font-size="26" font-weight="900" fill="url(#goldG)">HJ</text>
+              </svg>
+          </div>
+          <h1 class="main-title glow-text">HOTEL JAGDAMBA</h1>
+          <div class="brand-sub">
+              <span class="line"></span><span class="diamond">◆</span>
+              <p>DHABA &amp; RESTAURANT</p>
+              <span class="diamond">◆</span><span class="line"></span>
+          </div>
+      </div>
+      <div class="cat-container">
+          <div class="type-filter">
+              <button type="button" class="type-btn all active" data-type="ALL" onclick="setTypeFilter('ALL', this)">
+                  <span class="dot-indicator all"></span> ALL
+              </button>
+              <button type="button" class="type-btn veg" data-type="veg" onclick="setTypeFilter('veg', this)">
+                  <span class="dot-indicator veg"></span> VEG
+              </button>
+              <button type="button" class="type-btn nonveg" data-type="nonveg" onclick="setTypeFilter('nonveg', this)">
+                  <span class="dot-indicator nonveg"></span> NON-VEG
+              </button>
+          </div>
+          <div class="cat-scroll" id="catScroll"></div>
+      </div>
+      <div id="menuDisplay"><div class="loading-msg">⏳ Menu load हो रहा है...</div></div>
+      <div class="request-box">
+          <h3 class="glow-text" style="margin:0;">👑 Any Special Request?</h3>
+      </div>
+      <a href="tel:918377996928" class="floating-call">
+          <span style="background:#000; color:#fff; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;">📞</span>
+          <span>Connect to Hotel Jagdamba Dhaba &amp; Restaurant</span>
+      </a>
+      <div class="cart-bar" id="cartBar" onclick="openOrderModal()">
+          <div style="display:flex; align-items:center; gap:10px;">🛒 <span id="cartCount">0 Items</span></div>
+          <div id="cartTotal">₹0</div>
+          <div>Confirm Order ➔</div>
+      </div>
+      <div id="orderModal" class="modal">
+          <div class="modal-content">
+              <h2 class="glow-text" style="margin-top:0;">Finalize Order</h2>
+              <input type="text" id="custName" class="modal-input" placeholder="आपका नाम">
+              <select id="orderMode" class="modal-input" onchange="updatePlaceholder()">
+                  <option value="Dining">Dining 🍽️</option>
+                  <option value="Home Delivery">Home Delivery 🚚</option>
+              </select>
+              <input type="text" id="custInfo" class="modal-input" placeholder="टेबल नंबर">
+              <div class="pay-options">
+                  <div class="pay-btn" onclick="processOrder('ONLINE')"><span>ONLINE 💳</span><small>Pay via UPI</small></div>
+                  <div class="pay-btn" onclick="processOrder('COD')"><span>CASH 💵</span><small>Pay Later</small></div>
+              </div>
+              <button onclick="closeModal()" style="background:transparent; color:#888; border:none; margin-top:20px; cursor:pointer; font-family:'Montserrat'; font-weight:600;">← Back to Menu</button>
+          </div>
+      </div>
+      <div id="confirmModal" class="modal">
+          <div class="modal-content">
+              <h2 class="glow-text" style="margin-top:0;">Payment Verification</h2>
+              <p style="color:#aaa; font-size:13px; line-height:1.5; margin-bottom:6px;">
+                  अगर आपका UPI Payment सफल हुआ है, तो<br>
+                  <strong style="color:var(--gold-light);">UPI App से Transaction ID (UTR)</strong> यहाँ डालें:
+              </p>
+              <p style="color:#666; font-size:11px; margin:0 0 12px 0;">
+                  ⚠️ Transaction ID डाले बिना order PAID नहीं माना जाएगा
+              </p>
+              <input type="text" id="utrInput" class="modal-input" placeholder="UTR / Reference No (12 digits)" maxlength="22" autocomplete="off">
+              <div id="utrError" style="color:#ff5252; font-size:11px; min-height:14px; margin-top:-4px; margin-bottom:6px; font-weight:700;"></div>
+              <div class="pay-options">
+                  <div class="pay-btn" onclick="submitUtr()"><span>✅ SUBMIT</span><small>Verify Payment</small></div>
+                  <div class="pay-btn secondary" onclick="cancelPayment()"><span>↩️ CANCEL</span><small>Retry / Back</small></div>
+              </div>
+              <p style="color:#555; font-size:10px; margin-top:18px; line-height:1.5;">
+                  💡 UTR आपको UPI App (PhonePe, GPay, Paytm, BHIM) में<br>"Transaction Successful" page पर मिलेगा
+              </p>
+          </div>
+      </div>
+      <div id="billModal" class="modal">
+          <div class="modal-content" style="padding: 18px 10px; max-width: 760px;">
+              <div id="billContent"></div>
+          </div>
+      </div>
 
-    <a href="tel:918377996928" class="floating-call">
-        <span style="background:#000; color:#fff; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;">📞</span>
-        <span>Connect to Hotel Jagdamba Dhaba & Restaurant</span>
-    </a>
+      <!-- Hidden stage to render the bill at full A4 width for crisp PDF capture -->
+      <div id="pdfStage" aria-hidden="true"></div>
 
-    <div class="cart-bar" id="cartBar" onclick="openOrderModal()">
-        <div style="display:flex; align-items:center; gap:10px;">🛒 <span id="cartCount">0 Items</span></div>
-        <div id="cartTotal">₹0</div>
-        <div>Confirm Order ➔</div>
-    </div>
+      <script>
+          const QR_DATA_URI = "data:image/png;base64,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";
+      </script>
 
-    <div id="orderModal" class="modal">
-        <div class="modal-content">
-            <h2 class="glow-text">Finalize Order</h2>
-            <input type="text" id="custName" class="modal-input" placeholder="आपका नाम">
-            <select id="orderMode" class="modal-input" onchange="updatePlaceholder()">
-                <option value="Dining">Dining 🍽️</option>
-                <option value="Home Delivery">Home Delivery 🚚</option>
-            </select>
-            <input type="text" id="custInfo" class="modal-input" placeholder="टेबल नंबर">
-            
-            <div class="pay-options">
-                <div class="pay-btn" onclick="processOrder('ONLINE')"><span>ONLINE 💳</span><small>Pay via UPI</small></div>
-                <div class="pay-btn" onclick="processOrder('COD')"><span>CASH 💵</span><small>Pay Later</small></div>
-            </div>
-            
-            <button onclick="closeModal()" style="background:transparent; color:#888; border:none; margin-top:20px; cursor:pointer;">← Back to Menu</button>
-        </div>
-    </div>
+      <script>
+          const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
+          const UPI_ID = "Q334332463@ybl";
+          const OWNER_PHONE = "918377996928";
+          const HOTEL_NAME = "Hotel Jagdamba";
 
-    <script>
-        const sheetURL = "https://docs.google.com/spreadsheets/d/1oHvoI-9h5rkgcrmlrSXAIO05UxIRBHwhDT2bMtUSMKo/export?format=csv";
-        const UPI_ID = "Q334332463@ybl"; // आपकी UPI ID
-        let menuItems = [], cart = {}, currentFilter = "ALL";
+          let menuItems = [], cart = {}, currentFilter = "ALL", currentType = "ALL", pendingOrder = null;
 
-        async function loadMenu() {
-            const resp = await fetch(sheetURL);
-            const data = await resp.text();
-            const rows = data.split("\n").slice(1);
-            const cats = new Set(["ALL"]);
-            menuItems = rows.filter(r => r.trim()).map((r, i) => {
-                const cols = r.split(",");
-                const p = parseInt(cols[1]);
-                cats.add(cols[2]?.trim().toUpperCase());
-                return { id: i, name: cols[0], price: isNaN(p) ? 0 : p, cat: cols[2]?.trim().toUpperCase(), type: cols[3]?.toLowerCase().includes("non") ? "nonveg" : "veg", desc: cols[4] || "Delicious freshly prepared dish.", img: cols[5] || 'https://via.placeholder.com/100' };
-            });
-            const scroll = document.getElementById("catScroll");
-            Array.from(cats).forEach(c => scroll.innerHTML += `<div class="chip ${c==='ALL'?'active':''}" onclick="filterCat('${c}', this)">${c}</div>`);
-            renderMenu();
-            initScrollHighlight();
-        }
+          async function loadMenu() {
+              try {
+                  const resp = await fetch(sheetURL);
+                  if (!resp.ok) throw new Error("Sheet load failed");
+                  const data = await resp.text();
+                  const rows = data.split("\n").slice(1);
+                  const cats = new Set(["ALL"]);
+                  menuItems = rows.filter(r => r.trim()).map((r, i) => {
+                      const cols = parseCsvRow(r);
+                      const p = parseInt(cols[1], 10);
+                      const cat = (cols[2] || "").trim().toUpperCase();
+                      if (cat) cats.add(cat);
+                      return {
+                          id: i,
+                          name: (cols[0] || "Item").trim(),
+                          price: isNaN(p) ? 0 : p,
+                          cat: cat,
+                          type: (cols[3] || "").toLowerCase().includes("non") ? "nonveg" : "veg",
+                          desc: (cols[4] || "Delicious freshly prepared dish.").trim(),
+                          img: (cols[5] || "").trim() || "https://placehold.co/100x100/1a1a1a/bf953f?text=Dish"
+                      };
+                  });
+                  const scroll = document.getElementById("catScroll");
+                  scroll.innerHTML = Array.from(cats).map(c =>
+                      `<div class="chip ${c === 'ALL' ? 'active' : ''}" data-cat="${escapeAttr(c)}" onclick="filterCat(this.dataset.cat, this)">${escapeHtml(c)}</div>`
+                  ).join("");
+                  renderMenu();
+                  initScrollHighlight();
+              } catch (err) {
+                  document.getElementById("menuDisplay").innerHTML =
+                      `<div class="empty-msg">⚠️ Menu load नहीं हो पाया। कृपया internet check करके page refresh करें।</div>`;
+                  console.error(err);
+              }
+          }
 
-        function renderMenu() {
-            const isVeg = document.getElementById("vegToggle").checked;
-            const type = isVeg ? "veg" : "nonveg";
-            let html = "", list = menuItems.filter(i => (currentFilter === "ALL" || i.cat === currentFilter) && i.type === type);
-            list.forEach(i => {
-                const q = cart[i.id] || 0;
-                const color = i.type === "veg" ? "#00c853" : "#ff3333";
-                html += `<div class="item-card js-item-card"><img src="${i.img}" class="item-img"><div class="item-info"><div class="item-name"><div class="item-type-sign" style="border-color:${color}"><div style="background:${color}"></div></div>${i.name}</div><div class="item-desc">${i.desc}</div><div class="item-price">${i.price === 0 ? 'MRP' : '₹'+i.price}</div></div>${q > 0 ? `<div class="qty-box"><span onclick="updateQty(${i.id},-1)">−</span>${q}<span onclick="updateQty(${i.id},1)">+</span></div>` : `<button class="chip active" onclick="updateQty(${i.id},1)">ADD</button>`}</div>`;
-            });
-            document.getElementById("menuDisplay").innerHTML = html;
-        }
+          function parseCsvRow(row) {
+              const out = [];
+              let cur = "", inQ = false;
+              for (let i = 0; i < row.length; i++) {
+                  const ch = row[i];
+                  if (ch === '"') {
+                      if (inQ && row[i+1] === '"') { cur += '"'; i++; }
+                      else inQ = !inQ;
+                  } else if (ch === ',' && !inQ) {
+                      out.push(cur); cur = "";
+                  } else { cur += ch; }
+              }
+              out.push(cur);
+              return out.map(s => s.replace(/\r/g, ""));
+          }
 
-        function initScrollHighlight() {
-            window.addEventListener('scroll', () => {
-                const cards = document.querySelectorAll('.js-item-card');
-                const centerY = window.innerHeight / 2.5;
-                cards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    if (rect.top <= centerY && rect.bottom >= centerY) card.classList.add('highlight');
-                    else card.classList.remove('highlight');
-                });
-            });
-        }
+          function escapeHtml(str) {
+              return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+          }
+          function escapeAttr(str) { return String(str).replace(/"/g, '&quot;'); }
 
-        function updateQty(id, val) {
-            cart[id] = (cart[id] || 0) + val; if(cart[id] <= 0) delete cart[id];
-            let total = 0, count = 0; menuItems.forEach(i => { if(cart[i.id]) { total += i.price * cart[i.id]; count += cart[i.id]; } });
-            document.getElementById("cartBar").style.display = count > 0 ? "flex" : "none";
-            document.getElementById("cartCount").innerText = count + " Items";
-            document.getElementById("cartTotal").innerText = "₹" + total;
-            renderMenu();
-        }
+          function renderMenu() {
+              const list = menuItems.filter(i =>
+                  (currentFilter === "ALL" || i.cat === currentFilter) &&
+                  (currentType === "ALL" || i.type === currentType)
+              );
+              if (list.length === 0) {
+                  document.getElementById("menuDisplay").innerHTML =
+                      `<div class="empty-msg">🍽️ इस category में कोई item नहीं है।</div>`;
+                  return;
+              }
+              const html = list.map(i => {
+                  const q = cart[i.id] || 0;
+                  const color = i.type === "veg" ? "#00c853" : "#ff3333";
+                  const qtyBlock = q > 0
+                      ? `<div class="qty-box"><span onclick="updateQty(${i.id},-1)">−</span>${q}<span onclick="updateQty(${i.id},1)">+</span></div>`
+                      : `<button class="chip active" onclick="updateQty(${i.id},1)">ADD</button>`;
+                  return `<div class="item-card js-item-card">
+                      <img src="${escapeAttr(i.img)}" class="item-img" onerror="this.src='https://placehold.co/100x100/1a1a1a/bf953f?text=Dish'">
+                      <div class="item-info">
+                          <div class="item-name">
+                              <span class="item-type-sign" style="border-color:${color}"><div style="background:${color}"></div></span>
+                              ${escapeHtml(i.name)}
+                          </div>
+                          <div class="item-desc">${escapeHtml(i.desc)}</div>
+                          <div class="item-price">${i.price === 0 ? 'MRP' : '₹' + i.price}</div>
+                      </div>
+                      ${qtyBlock}
+                  </div>`;
+              }).join("");
+              document.getElementById("menuDisplay").innerHTML = html;
+          }
 
-        function filterCat(c, el) { currentFilter = c; document.querySelectorAll('.chip').forEach(x => x.classList.remove('active')); el.classList.add('active'); renderMenu(); }
-        function openOrderModal() { document.getElementById("orderModal").style.display = "block"; }
-        function closeModal() { document.getElementById("orderModal").style.display = "none"; }
-        function updatePlaceholder() { document.getElementById('custInfo').placeholder = document.getElementById('orderMode').value === "Dining" ? "टेबल नंबर" : "पूरा पता"; }
+          function initScrollHighlight() {
+              window.addEventListener('scroll', () => {
+                  const cards = document.querySelectorAll('.js-item-card');
+                  const centerY = window.innerHeight / 2.5;
+                  cards.forEach(card => {
+                      const rect = card.getBoundingClientRect();
+                      if (rect.top <= centerY && rect.bottom >= centerY) card.classList.add('highlight');
+                      else card.classList.remove('highlight');
+                  });
+              }, { passive: true });
+          }
 
-        function processOrder(pType) {
-            const name = document.getElementById("custName").value, info = document.getElementById("custInfo").value, mode = document.getElementById("orderMode").value;
-            if(!name || !info) return alert("विवरण भरें!");
-            
-            let itemsMsg = "", total = 0;
-            menuItems.forEach(i => { if(cart[i.id]) { itemsMsg += `${i.type==='veg'?'🟢':'🔴'} ${i.name} ×${cart[i.id]} ➜ ₹${i.price*cart[i.id]}%0A`; total += i.price*cart[i.id]; }});
-            
-            if(pType === 'ONLINE') {
-                // सीधे पेमेंट एप खोलने के लिए UPI लिंक
-                const upiLink = `upi://pay?pa=${UPI_ID}&pn=Jagdamba&am=${total}&cu=INR`;
-                window.location.href = upiLink;
-                // थोड़े समय बाद व्हाट्सएप पर मैसेज भेजें
-                setTimeout(() => sendToWA(name, mode, info, itemsMsg, total, "✅ Online (Paid)"), 2000);
-            } else {
-                sendToWA(name, mode, info, itemsMsg, total, "⌛ COD (Pending)");
-            }
-        }
+          function updateQty(id, val) {
+              cart[id] = (cart[id] || 0) + val;
+              if (cart[id] <= 0) delete cart[id];
+              let total = 0, count = 0;
+              menuItems.forEach(i => {
+                  if (cart[i.id]) { total += i.price * cart[i.id]; count += cart[i.id]; }
+              });
+              document.getElementById("cartBar").style.display = count > 0 ? "flex" : "none";
+              document.getElementById("cartCount").innerText = count + " Items";
+              document.getElementById("cartTotal").innerText = "₹" + total;
+              renderMenu();
+          }
 
-        function sendToWA(name, mode, info, itemsMsg, total, pStat) {
-            const waMsg = `🍽️✨ *नया डिजिटल ऑर्डर प्राप्त हुआ* ✨🍽️%0A━━━━━━━━━━━━━━━━━━━━━━%0A🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*%0A🥘 *स्वाद भी • सेवा भी • विश्वास भी*%0A%0A👤 *ग्राहक नाम:* ${name}%0A🍴 *ऑर्डर प्रकार:* ${mode}%0A📍 *विवरण:* ${info}%0A%0A📋 *ऑर्डर विवरण:*%0A${itemsMsg}━━━━━━━━━━━━━━━━━━━━━━%0A💵 *कुल बिल: ₹${total}* (Plus MRP Items)%0A💳 *पेमेंट स्टेटस: ${pStat}*%0A%0A🧾 *ऑर्डर तैयार किया जा रहा है...*%0A🙏 *कृपया प्रतीक्षा करें*%0A%0A━━━━━━━━━━━━━━━━━━━━━━%0A❤️ *धन्यवाद!*%0A*फिर से सेवा का मौका दीजिए* 😊`;
-            window.open(`https://wa.me/918377996928?text=${waMsg}`);
-            closeModal();
-        }
+          function filterCat(c, el) {
+              currentFilter = c;
+              document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+              el.classList.add('active');
+              renderMenu();
+          }
 
-        loadMenu();
-    </script>
-</body>
-</html>
+          function setTypeFilter(t, el) {
+              currentType = t;
+              document.querySelectorAll('.type-btn').forEach(x => x.classList.remove('active'));
+              el.classList.add('active');
+              renderMenu();
+          }
+
+          function openOrderModal() {
+              document.getElementById("orderModal").style.display = "block";
+              document.body.style.overflow = "hidden";
+          }
+          function closeModal() {
+              document.getElementById("orderModal").style.display = "none";
+              document.body.style.overflow = "";
+          }
+          function updatePlaceholder() {
+              document.getElementById('custInfo').placeholder =
+                  document.getElementById('orderMode').value === "Dining" ? "टेबल नंबर" : "पूरा पता";
+          }
+
+          function processOrder(pType) {
+              const name = document.getElementById("custName").value.trim();
+              const info = document.getElementById("custInfo").value.trim();
+              const mode = document.getElementById("orderMode").value;
+              if (!name || !info) { alert("कृपया नाम और " + (mode === "Dining" ? "टेबल नंबर" : "पता") + " भरें!"); return; }
+              if (Object.keys(cart).length === 0) { alert("Cart खाली है!"); return; }
+              const items = [];
+              let total = 0;
+              menuItems.forEach(i => {
+                  if (cart[i.id]) {
+                      const lineTotal = i.price * cart[i.id];
+                      total += lineTotal;
+                      items.push({ name: i.name, qty: cart[i.id], price: i.price, total: lineTotal, type: i.type });
+                  }
+              });
+              pendingOrder = { name, info, mode, items, total, billNo: generateBillNo(), billDate: new Date() };
+              if (pType === 'ONLINE') {
+                  const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(HOTEL_NAME)}&am=${total}&cu=INR&tn=${encodeURIComponent('Bill ' + pendingOrder.billNo)}`;
+                  window.location.href = upiLink;
+                  setTimeout(() => {
+                      closeModal();
+                      document.getElementById('utrInput').value = '';
+                      document.getElementById('utrError').innerText = '';
+                      document.getElementById('confirmModal').style.display = 'block';
+                  }, 1500);
+              } else {
+                  finalizeOrder('CASH', 'PENDING', '');
+              }
+          }
+
+          function submitUtr() {
+              const utr = document.getElementById('utrInput').value.trim().toUpperCase();
+              const errEl = document.getElementById('utrError');
+              if (!utr) { errEl.innerText = "⚠️ Transaction ID भरना ज़रूरी है"; return; }
+              if (!/^[A-Z0-9]{8,22}$/.test(utr)) { errEl.innerText = "⚠️ सही UTR डालें (8-22 letters/numbers)"; return; }
+              errEl.innerText = '';
+              document.getElementById('confirmModal').style.display = 'none';
+              finalizeOrder('UPI', 'PAID', utr);
+          }
+
+          function cancelPayment() {
+              document.getElementById('confirmModal').style.display = 'none';
+              document.getElementById('utrError').innerText = '';
+              document.getElementById('orderModal').style.display = 'block';
+              document.body.style.overflow = "hidden";
+          }
+
+          function finalizeOrder(payMethod, status, utr) {
+              if (!pendingOrder) return;
+              pendingOrder.payMethod = payMethod;
+              pendingOrder.status = status;
+              pendingOrder.utr = utr || '';
+              sendWhatsAppToOwner(pendingOrder);
+              showBillReceipt(pendingOrder);
+              cart = {};
+              renderMenu();
+              document.getElementById('cartBar').style.display = 'none';
+              document.getElementById('cartCount').innerText = "0 Items";
+              document.getElementById('cartTotal').innerText = "₹0";
+              document.getElementById('orderModal').style.display = 'none';
+              document.getElementById('custName').value = '';
+              document.getElementById('custInfo').value = '';
+          }
+
+          function generateBillNo() {
+              const d = new Date();
+              const datePart = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+              let counter = parseInt(localStorage.getItem('hjBillCounter') || '0', 10) + 1;
+              localStorage.setItem('hjBillCounter', String(counter));
+              return `HJ-${datePart}-${String(counter).padStart(4,'0')}`;
+          }
+
+          function sendWhatsAppToOwner(order) {
+              const isPaid = order.status === 'PAID';
+              const dateStr = order.billDate.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+              const hasMRP = order.items.some(i => i.price === 0);
+              const detailLabel = order.mode === 'Dining' ? 'Table No' : 'पता';
+              let paymentLine;
+              if (order.payMethod === 'UPI' && isPaid) {
+                  paymentLine = `💳 *पेमेंट स्टेटस: ✅ ONLINE PAID via UPI*\n🔖 *Txn ID:* ${order.utr}`;
+              } else {
+                  paymentLine = `💳 *पेमेंट स्टेटस: ⌛ COD (Pending)*`;
+              }
+              let msg = `🍽️✨ *नया डिजिटल ऑर्डर प्राप्त हुआ* ✨🍽️\n`;
+              msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+              msg += `🏨 *होटल जगदंबा ढाबा एंड रेस्टोरेंट*\n`;
+              msg += `🥘 *स्वाद भी • सेवा भी • विश्वास भी*\n\n`;
+              msg += `🧾 *बिल नंबर:* ${order.billNo}\n`;
+              msg += `📅 *दिनांक:* ${dateStr}\n`;
+              msg += `👤 *ग्राहक नाम:* ${order.name}\n`;
+              msg += `🍴 *ऑर्डर प्रकार:* ${order.mode}\n`;
+              msg += `📍 *${detailLabel}:* ${order.info}\n\n`;
+              msg += `📋 *ऑर्डर विवरण:*\n`;
+              order.items.forEach(i => {
+                  const priceStr = i.price === 0 ? 'MRP' : `₹${i.total}`;
+                  msg += `${i.type === 'veg' ? '🟢' : '🔴'} ${i.name} ×${i.qty} ➜ ${priceStr}\n`;
+              });
+              msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+              msg += `💵 *कुल बिल: ₹${order.total}*${hasMRP ? ' (Plus MRP Items)' : ''}\n`;
+              msg += `${paymentLine}\n\n`;
+              msg += `🧾 *ऑर्डर तैयार किया जा रहा है...*\n`;
+              msg += `🙏 *कृपया प्रतीक्षा करें*\n\n`;
+              msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+              msg += `❤️ *धन्यवाद!*\n`;
+              msg += `*फिर से सेवा का मौका दीजिए* 😊`;
+              const url = `https://wa.me/${OWNER_PHONE}?text=${encodeURIComponent(msg)}`;
+              window.open(url, '_blank');
+          }
+
+          const HJ_LOGO_SVG = `<svg width="90" height="90" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                  <linearGradient id="goldB" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#bf953f"/>
+                      <stop offset="40%" stop-color="#fcf6ba"/>
+                      <stop offset="60%" stop-color="#b38728"/>
+                      <stop offset="100%" stop-color="#aa771c"/>
+                  </linearGradient>
+              </defs>
+              <g fill="url(#goldB)">
+                  <path d="M30 28 L42 14 L54 26 L60 10 L66 26 L78 14 L90 28 L84 40 L36 40 Z"/>
+                  <circle cx="42" cy="14" r="3"/>
+                  <circle cx="60" cy="10" r="3.5"/>
+                  <circle cx="78" cy="14" r="3"/>
+              </g>
+              <g fill="none" stroke="url(#goldB)" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M14 78 Q4 70 14 60 Q22 56 30 64"/>
+                  <path d="M106 78 Q116 70 106 60 Q98 56 90 64"/>
+                  <path d="M18 84 Q10 90 18 96"/>
+                  <path d="M102 84 Q110 90 102 96"/>
+              </g>
+              <circle cx="60" cy="68" r="24" fill="none" stroke="url(#goldB)" stroke-width="2.5"/>
+              <text x="60" y="78" text-anchor="middle" font-family="Cinzel, serif" font-size="26" font-weight="900" fill="url(#goldB)">HJ</text>
+          </svg>`;
+
+          function buildBillHtml(order) {
+              const isPaid = order.status === 'PAID';
+              const dateStr = order.billDate.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+              const hasMRP = order.items.some(i => i.price === 0);
+              const itemsHtml = order.items.map(i => `
+                  <tr>
+                      <td><span class="dot ${i.type}"></span>${escapeHtml(i.name)}</td>
+                      <td style="text-align:center;">${i.qty}</td>
+                      <td style="text-align:right;">${i.price === 0 ? 'MRP' : '₹' + i.price}</td>
+                      <td style="text-align:right; font-weight:800;">${i.price === 0 ? 'MRP' : '₹' + i.total}</td>
+                  </tr>
+              `).join('');
+              const detailKey = order.mode === 'Dining' ? 'Table No' : 'Address';
+              const detailIco = order.mode === 'Dining' ? '🪑' : '📍';
+              return `
+                  <div class="bill-card" id="billPrintArea">
+                    <div class="bill-inner">
+                      <div class="bill-hero">
+                          <div class="hj-logo">${HJ_LOGO_SVG}</div>
+                          <h1>HOTEL JAGDAMBA</h1>
+                          <div class="sub">
+                              <span class="line"></span><span class="diamond">◆</span>
+                              <p>DHABA &amp; RESTAURANT</p>
+                              <span class="diamond">◆</span><span class="line"></span>
+                          </div>
+                          <div class="phone"><span class="pic">📞</span>+91 83779 96928</div>
+                      </div>
+                      <div class="bill-divider"></div>
+                      <div class="bill-meta">
+                          <div><span class="ico">📋</span><span class="lbl">Bill No</span><strong>${order.billNo}</strong></div>
+                          <div><span class="ico">⏱</span><span class="lbl">Date &amp; Time</span><strong>${dateStr}</strong></div>
+                          <div><span class="ico">👤</span><span class="lbl">Customer</span><strong>${escapeHtml(order.name)}</strong></div>
+                          <div><span class="ico">🍴</span><span class="lbl">Order Mode</span><strong>${order.mode}</strong></div>
+                          <div><span class="ico">${detailIco}</span><span class="lbl">${detailKey}</span><strong>${escapeHtml(order.info)}</strong></div>
+                      </div>
+                      <div class="bill-divider"></div>
+                      <table class="bill-table">
+                          <thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead>
+                          <tbody>${itemsHtml}</tbody>
+                      </table>
+                      <div class="bill-divider"></div>
+                      <div class="bill-total"><span>GRAND TOTAL</span><span>₹${order.total}</span></div>
+                      ${hasMRP ? `<p style="text-align:right; font-size:11px; color:#888; margin:2px 6px 0 0; font-style:italic;">* MRP items billed separately as per packaging</p>` : ''}
+                      <div class="pay-status-box ${isPaid ? 'paid' : ''}">
+                          <div class="ic">${isPaid ? '✅' : '⏳'}</div>
+                          <div class="txt">
+                              <div class="ttl">${isPaid ? 'PAID via UPI' : 'CASH ON DELIVERY'}</div>
+                              <div class="sub">${isPaid
+                                  ? 'Txn ID: ' + escapeHtml(order.utr) + ' &middot; Payment received successfully. Thank you!'
+                                  : 'Please pay at the time of ' + (order.mode === 'Dining' ? 'service' : 'delivery')
+                              }</div>
+                          </div>
+                      </div>
+                      <div class="scan-block">
+                          <div class="scan-qr"><img src="${QR_DATA_URI}" alt="Scan to order"></div>
+                          <div class="scan-info">
+                              <div class="head"><span class="cart-ic">🛒</span> SCAN TO ORDER AGAIN</div>
+                              <div class="tag">Quick, Easy &amp; Delicious!</div>
+                              <div class="scan-steps">
+                                  <div class="scan-step"><div class="ic">📱<span class="num">1</span></div><div class="lbl">Scan<br>QR Code</div></div>
+                                  <div class="scan-arrow">➔</div>
+                                  <div class="scan-step"><div class="ic">🍽<span class="num">2</span></div><div class="lbl">Choose<br>Your Food</div></div>
+                                  <div class="scan-arrow">➔</div>
+                                  <div class="scan-step"><div class="ic">🛵<span class="num">3</span></div><div class="lbl">Place<br>Your Order</div></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="bill-thanks">
+                          <p class="hindi">🙏 धन्यवाद! आपका दिन शुभ हो</p>
+                          <p class="eng">Thank you for dining with Hotel Jagdamba</p>
+                          <p class="gen">— This is a computer generated receipt —</p>
+                      </div>
+                      <div class="bill-footer-strip">
+                          <div class="footer-cell">
+                              <div class="ic">⭐</div>
+                              <div class="ttl">We Value<br>Your Feedback</div>
+                              <div class="sub">Scan &amp; Rate Us</div>
+                          </div>
+                          <div class="footer-cell">
+                              <div class="ic">💬</div>
+                              <div class="ttl">Order Again on<br>WhatsApp</div>
+                              <div class="sub">+91 83779 96928</div>
+                          </div>
+                          <div class="footer-cell">
+                              <div class="ic">🏷️</div>
+                              <div class="ttl">Next Order<br>Get 10% OFF</div>
+                              <div class="sub">Thank You!</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              `;
+          }
+
+          function showBillReceipt(order) {
+              const billHtml = buildBillHtml(order);
+              const actions = `
+                  <div class="bill-actions">
+                      <button class="pay-btn" onclick="downloadBill()"><span>📥 SAVE PDF</span><small>Download Color PDF</small></button>
+                      <button class="pay-btn secondary" onclick="closeBillModal()"><span>🏠 DONE</span><small>Back to Menu</small></button>
+                  </div>`;
+              document.getElementById('billContent').innerHTML = billHtml + actions;
+              document.getElementById('billModal').style.display = 'block';
+              document.body.style.overflow = "hidden";
+          }
+
+          function closeBillModal() {
+              document.getElementById('billModal').style.display = 'none';
+              document.body.style.overflow = "";
+              pendingOrder = null;
+          }
+
+          // === Color PDF download — captures the bill at full A4-friendly width ===
+          async function downloadBill() {
+              if (!pendingOrder) return;
+              const stage = document.getElementById('pdfStage');
+              stage.innerHTML = buildBillHtml(pendingOrder);
+              try {
+                  if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e){} }
+                  await new Promise(r => setTimeout(r, 80));
+                  const target = stage.querySelector('#billPrintArea');
+                  const canvas = await html2canvas(target, {
+                      backgroundColor: '#000000',
+                      scale: 2,
+                      useCORS: true,
+                      allowTaint: true,
+                      logging: false,
+                      width: target.offsetWidth,
+                      height: target.offsetHeight,
+                      windowWidth: 800
+                  });
+                  const imgData = canvas.toDataURL('image/png');
+                  const { jsPDF } = window.jspdf;
+                  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                  const pageW = pdf.internal.pageSize.getWidth();   // 210mm
+                  const pageH = pdf.internal.pageSize.getHeight();  // 297mm
+                  pdf.setFillColor(0, 0, 0);
+                  pdf.rect(0, 0, pageW, pageH, 'F');
+                  const margin = 8;
+                  const maxW = pageW - margin * 2;
+                  const maxH = pageH - margin * 2;
+                  const ratio = canvas.width / canvas.height;
+                  let drawW = maxW;
+                  let drawH = drawW / ratio;
+                  if (drawH > maxH) { drawH = maxH; drawW = drawH * ratio; }
+                  const x = (pageW - drawW) / 2;
+                  const y = (pageH - drawH) / 2;
+                  pdf.addImage(imgData, 'PNG', x, y, drawW, drawH, undefined, 'FAST');
+                  const fname = (pendingOrder.billNo || 'HotelJagdamba-Bill') + '.pdf';
+                  pdf.save(fname);
+              } catch (e) {
+                  console.error('PDF error', e);
+                  alert('PDF generate नहीं हुआ, browser print dialog खुल रहा है।');
+                  window.print();
+              } finally {
+                  stage.innerHTML = '';
+              }
+          }
+
+          window.addEventListener('DOMContentLoaded', loadMenu);
+      </script>
+  </body>
+  </html>
+  
