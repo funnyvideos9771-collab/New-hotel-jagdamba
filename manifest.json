@@ -1,12 +1,25 @@
 {
+  "name": "HOTEL JAGDAMBA DHABA & RESTAURANT",
   "short_name": "Hotel Jagdamba",
-  "name": "Hotel Jagdamba Dhaba & Restaurant",
-  "icons": [
-    { "src": "1000172945.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "1000172945.png", "sizes": "512x512", "type": "image/png" }
-  ],
-  "start_url": "index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "theme_color": "#0a0a0a",
-  "background_color": "#f8f9fa"
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#d4af37",
+  "description": "Premium Restaurant & Dhaba Application",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
